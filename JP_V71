@@ -210,7 +210,7 @@ change_dropbear_port() {
     else
       echo "DROPBEAR_PORTS=\"${PORTS[dropbear]}\"" >> /etc/default/dropbear
     fi
-    systemctl restart dropbear 2>/dev/null || true
+    systemctl.restart dropbear 2>/dev/null || true
     save_ports
     success "Dropbear ports changed to: ${PORTS[dropbear]}"
   fi
@@ -237,7 +237,7 @@ change_ws_nontls_port() {
     PORTS[ws_nontls]="$new_port"
     if [ -f /etc/nginx/sites-available/ws-nontls ]; then
       sed -i -E "s/listen[[:space:]]+[0-9]+;/listen ${PORTS[ws_nontls]};/g" /etc/nginx/sites-available/ws-nontls || true
-      nginx -t 2>/dev/null && systemctl reload nginx 2>/dev/null || warn "nginx reload failed"
+      nginx -t 2>/dev/null && systemctl.reload nginx 2>/dev/null || warn "nginx reload failed"
     fi
     save_ports
     success "WS Non-TLS port set to ${PORTS[ws_nontls]}"
@@ -502,7 +502,7 @@ create_ssh_user() {
 create_ws_account() {
   # For WebSocket SSH we create a system user as well (same as SSH)
   create_ssh_user
-  info "WS account created â€” if using SSH over WebSocket, same credentials apply."
+  info "WS account created — if using SSH over WebSocket, same credentials apply."
 }
 
 create_hysteria_account() {
@@ -546,4 +546,4 @@ delete_user() {
   sqlite3 "$DB" "DELETE FROM users WHERE username='$(sqlite3_escape "$du")';" 2>/dev/null || true
   if [ -f /etc/hysteria/users.json ] && command_exists jq; then
     tmp=$(mktemp)
-    jq "del(.users.\"$du\")" /etc/hysteria/users.json > "$tmp" && mv "$tmp" /etc/hysteria/users.json 2>/dev/nu
+    jq "del(.users.\"$du\")" /etc/hysteria/users.json > "$tmp" && mv "$tmp" /etc/hysteria/users.json 2>/dev/null
