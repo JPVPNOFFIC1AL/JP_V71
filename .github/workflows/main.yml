@@ -9,25 +9,25 @@ on:
     - cron: "0 */6 * * *"
 
 env:
-  HTTP_PROXY: http://<proxy-address>:<port>  # Ganti dengan alamat proxy dan port yang sesuai
-  HTTPS_PROXY: http://<proxy-address>:<port> # Ganti dengan alamat proxy dan port yang sesuai
+  HTTP_PROXY: http://<proxy-address>:<port>   # Ganti dengan alamat proxy dan port yang sesuai
+  HTTPS_PROXY: http://<proxy-address>:<port>  # Ganti dengan alamat proxy dan port yang sesuai
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set permissions
-      run: chmod -R 755 .
+      - name: Set permissions
+        run: chmod -R 755 .
 
-    - name: Run test script
-      run: |
-        echo "Running Script Check..."
-        ls -lah
-        bash ./install.sh || true
+      - name: Run test script
+        run: |
+          echo "Running Script Check..."
+          ls -lah
+          bash ./install.sh || true
 
-    - name: Finished
-      run: echo "Workflow complete."
+      - name: Finished
+        run: echo "Workflow complete."
