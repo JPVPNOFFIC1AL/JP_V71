@@ -6,11 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: "0 */6 * * *"
-
-env:
-  HTTP_PROXY: http://<proxy-address>:<port>   # Ganti dengan alamat proxy dan port yang sesuai
-  HTTPS_PROXY: http://<proxy-address>:<port>  # Ganti dengan alamat proxy dan port yang sesuai
+    - cron: "0 */6 * * *"  # Menjalankan setiap 6 jam sekali
 
 jobs:
   build:
